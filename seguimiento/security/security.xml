@@ -1,0 +1,10 @@
+<odoo>
+    <!--recor de security-->
+    <record id="group_gestion_permisos" model="res.groups">
+        <field name="name">Gestión de Permisos</field>
+    </record>
+
+    <record id="group_empleado" model="res.groups">
+        <field name="name">Empleado</field>
+    </record>
+</odoo>
