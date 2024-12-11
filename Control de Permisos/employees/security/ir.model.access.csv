@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employees_employees,employees_employees,model_employees_employees,base.group_user,1,1,1,1
+
+access_employees_personalinfo,employees_personalinfo,model_employees_personalinfo,base.group_user,1,1,1,1
+access_employees_seguimiento_empleado,employees_seguimiento_empleado,model_employees_seguimiento_empleado,base.group_user,1,1,1,1
+access_employees_seguimiento_permiso,employees_seguimiento_permiso,model_employees_seguimiento_permiso,base.group_user,1,1,1,1

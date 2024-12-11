@@ -1,0 +1,190 @@
+<odoo>
+    <data>
+        <!-- Vista Kanban -->
+   <record id="view_seguimiento_kanban" model="ir.ui.view">
+    <field name="name">seguimiento.permiso.kanban</field>
+    <field name="model">employees.seguimiento_empleado</field>
+    
+    <field name="arch" type="xml">
+        <kanban string="Seguimiento de Permisos">
+            <field name="nombre_empleado"/>
+            <field name="estado"/>
+            <field name="puesto"/>
+            <field name="tipo_permiso"/>
+            <field name="fecha_solicitud"/>
+            <field name="fecha_inicio"/>
+            <field name="fecha_fin"/>
+            <field name="motivo"/>
+            <field name="documentos"/>
+            <field name="id"/>
+
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_card">
+                        <div class="oe_kanban_content">
+                            <!-- Sección de Nombre y Estado con fondo color #cdced1 y altura aumentada -->
+                            <div class="o_kanban_details" style="background-color: #cdced1; color: #333; padding: 15px 15px; height: 50px;">
+                                <div class="row">
+                                    <!-- Nombre del empleado -->
+                                    <div class="col-8">
+                                        <strong>
+                                            <t t-esc="record.nombre_empleado.value"/>
+                                        </strong>
+                                    </div>
+
+                                    <!-- Estado del permiso alineado a la derecha -->
+                                    <div class="col-4 text-right">
+                                        <span class="badge o_tag" t-attf-class="o_tag_color_{{ record.estado.raw_value }}">
+                                            <t t-esc="record.estado.value"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Separación entre la parte superior y la información del permiso -->
+                            <div style="margin-top: 15px; padding-left: 15px;">
+                                <!-- Información del permiso -->
+                                <p>
+                                    <i class="fa fa-id-card" title="ID del empleado"></i> 
+                                    <strong>ID:</strong> <t t-esc="record.id.value"/>
+                                </p>
+                                <p>
+                                    <i class="fa fa-briefcase" title="Puesto del empleado"></i> 
+                                    <t t-esc="record.puesto.value"/>
+                                </p>
+                                <p>
+                                    <i class="fa fa-file-alt" title="Tipo de permiso"></i> 
+                                    <t t-esc="record.tipo_permiso.value"/>
+                                </p>
+                                <p>
+                                    <i class="fa fa-calendar" title="Fecha de emisión"></i> 
+                                    Emitido: <t t-esc="record.fecha_solicitud.value"/>
+                                </p>
+                                <p>
+                                    <i class="fa fa-calendar" title="Fecha de inicio del permiso"></i> 
+                                    Salida: <t t-esc="record.fecha_inicio.value"/>
+                                </p>
+                                <p>
+                                    <i class="fa fa-calendar" title="Fecha de regreso del permiso"></i> 
+                                    Regreso: <t t-esc="record.fecha_fin.value"/>
+                                </p>
+                                <p>
+                                    <strong>Explicación:</strong> 
+                                    <t t-esc="record.motivo.value"/>
+                                </p>
+                                <p>
+                                    <strong>Documentos:</strong>
+                                    <ul>
+                                        <t t-if="record.documentos.raw_value">
+                                            <t t-foreach="record.documentos.raw_value" t-as="document">
+                                                <li>
+                                                    <i class="fa fa-file" title="Archivo"></i> 
+                                                    <t t-esc="document.name"/>
+                                                </li>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <li>No hay documentos adjuntos.</li>
+                                        </t>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div> 
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+
+        <!-- Vista Formulario -->
+        <record id="view_seguimiento_form" model="ir.ui.view">
+            <field name="name">seguimiento.permiso.form</field>
+            <field name="model">employees.seguimiento_empleado</field>
+            <field name="arch" type="xml">
+                <form string="Seguimiento de Permiso">
+                    <header>
+
+                        <field name="estado" widget="statusbar" 
+                               statusbar_visible="borrador,proceso,aprobado,rechazado"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nombre_empleado" readonly="1"/>
+                                <field name="puesto" readonly="1"/>
+                                <field name="tipo_permiso"/>
+                            </group>
+                            <group>
+                                <field name="fecha_solicitud" readonly="1"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="motivo" widget="text"/>
+                        </group>
+                        <group string="Documentos Adjuntos">
+                            <field name="documentos" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                     <!--<chatter reload_on_follower="True"/> -->
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Lista -->
+        <record id="view_seguimiento_list" model="ir.ui.view">
+    <field name="name">seguimiento.permiso.list</field>
+    <field name="model">employees.seguimiento_empleado</field>
+    <field name="arch" type="xml">
+        <list string="Lista de Permisos">
+            <field name="nombre_empleado"/>
+            <field name="puesto"/>
+            <field name="tipo_permiso"/>
+            <field name="fecha_inicio"/>
+            <field name="fecha_fin"/>
+            <field name="documentos" widget="many2many_binary" string="Documentos Adjuntos"/>
+            <field name="estado" widget="badge" 
+                   decoration-success="estado == 'aprobado'" 
+                   decoration-danger="estado == 'rechazado'" 
+                   decoration-warning="estado == 'proceso'"/>
+        </list>
+    </field>
+</record>
+
+        <!-- Acción para mostrar las vistas -->
+        <record id="action_seguimiento_empleado" model="ir.actions.act_window">
+            <field name="name">Seguimiento</field>
+            <field name="res_model">employees.seguimiento_empleado</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="view_id" ref="view_seguimiento_list"/>
+            <field name="domain">[('seguimiento_id', '=', uid)]</field>
+        
+        </record>
+
+        <!-- Menú principal -->
+        <menuitem id="menu_seguimiento_root" 
+                  name="Control de Permisos Empleado" 
+                  sequence="10"/>
+
+
+        <!-- Submenú que abre la acción -->
+        <menuitem id="menu_seguimiento_empleado" name="Seguimiento" 
+                  parent="menu_seguimiento_root" 
+                  action="action_seguimiento_empleado" 
+                  sequence="20"
+                  />
+
+         <!-- <menuitem id="menu_seguimiento_permiso"
+                  name="Control de Permisos RRHH"
+                  sequence="20"
+                  groups="employees.group_gestion_permisos"/>
+         <menuitem id="menu_seguimiento"
+                  name="Seguimiento"
+                  parent="menu_seguimiento_permiso"
+                  action="action_seguimiento_empleado"
+                  sequence="10"/>  -->
+    </data>
+</odoo>

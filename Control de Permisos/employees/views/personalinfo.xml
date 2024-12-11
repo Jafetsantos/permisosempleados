@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Vista Kanban -->
+        <record id="view_personalinfo_kanban" model="ir.ui.view">
+            <field name="name">hr.employee.kanban</field>
+            <field name="model">employees.employees</field>
+            <field name="groups_id" eval="[(6, 0, [ref('group_empleado')])]"/>
+            <field name="arch" type="xml">
+                        <kanban string="Employee Info">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <!-- Contenedor principal para centrar en toda la pantalla -->
+                            <div style="display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh; margin: 0; background-color: transparent;">
+                                <!-- Tarjeta Kanban -->
+                                <div class="oe_kanban_global_click" 
+                                    style="background-color: #394e79; border: 1px solid #D3D3D3; border-radius: 8px; padding: 20px; width: 96vw; height: 100vh; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                    <!-- Encabezado -->
+                                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px; width: 100%;">
+                                            <div style="width: 150px; height: 150px; background-color: white; border-radius: 50%; border: 3px solid #f1f1ef; overflow: hidden;">
+                                                <field name="img" widget="image" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                            </div>
+                                        </div>  
+                                        <div style="display: flex; align-items: center; text-align: center; margin-bottom: 20px; width: 100%;">  
+                                            <h1 style="margin: 0; font-size: 45px; width: 100vw; color: #f1f1ef;"><strong><field name="name"/></strong></h1>
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px; width: 100%;">    
+                                            <button style="background-color: #007BFF; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">
+                                                Editar
+                                            </button>
+                                        </div>    
+                                    <!-- Cuerpo de la tarjeta -->
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <!-- Información Básica -->
+                                        <div style="width: 48%; background-color: #c2d2e9; border: 3px solid #f1f1ef; border-radius: 8px;">
+                                            <h2 style="margin-bottom: 10px; color: #333; font-size: 25px;">Información Básica</h2>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-id-card" title="ID del empleado"></i> <strong>DNI:</strong> <field name="identidad"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-user" title="Genero empleado"></i> <strong>Género:</strong> <field name="gender"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-user-circle" title="Tipo Empleado"></i> <strong>Tipo de Empleado:</strong> <field name="employee_type"/></p>
+                                             <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-briefcase" title="Dpto Treabajo"></i> <strong>Dpto de Trabajo:</strong> <field name="Departamento_trabajo"/></p>
+                                        </div>
+                                        <!-- Información de Contacto -->
+                                        <div style="width: 48%; background-color: #c2d2e9; border: 3px solid #f1f1ef; border-radius: 8px;">
+                                            <h2 style="margin-bottom: 10px; color: #333; font-size: 25px;">Información de Contacto</h2>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-map-marker" title="Departamento"></i> <strong>Departamento:</strong> <field name="departamento"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-map-marker" title="Municipio"></i> <strong>Municipio:</strong> <field name="municipio"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-phone" title="Telefono"></i> <strong>Teléfono:</strong> <field name="tel"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-envelope" title="CorreoI"></i> <strong>Correo Institucional:</strong> <field name="correo"/></p>
+                                            <p style="margin: 5px 0; font-size: 20px; color: #555;"><i class="fa fa-envelope" title="CorreoR"></i> <strong>Correo de Respaldo:</strong> <field name="correoR"/></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Acción para vincular la vista Kanban -->
+        <record id="action_perfil_kanban" model="ir.actions.act_window">
+            <field name="name">Informacion_Personal</field>
+            <field name="res_model">employees.employees</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_personalinfo_kanban"/>
+            <field name="domain">[('user_id', '=', uid)]</field>
+            <field name="context">{'create': 0}</field>
+        </record>
+
+        <!-- Menú para acceder a la vista Kanban -->
+        <menuitem id="employee_personalinfo_kanban"
+                  name="Perfil"
+                  parent=""
+                  sequence="10"
+                  groups="group_empleado"
+                  action="action_perfil_kanban"
+                  />
+    </data>
+</odoo>
+

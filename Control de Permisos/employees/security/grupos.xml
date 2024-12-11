@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <!-- Definir los grupos -->
+        <record id="group_empleado" model="res.groups">
+            <field name="name">Empleado</field>
+        </record>
+
+        <record id="group_gestion_permisos" model="res.groups">
+            <field name="name">RRHH</field>
+        </record>
+    </data>
+</odoo>
