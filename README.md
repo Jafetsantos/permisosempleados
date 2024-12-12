@@ -81,9 +81,9 @@ La herramienta, diseñada en el marco del curso de Análisis y Diseño de Sistem
 - **Imagen de Referencia:**
 
 
-###Funcionamiento del Sistema
+## Funcionamiento del Sistema
 
-Énfasis en la experiencia del usuario
+### Énfasis en la experiencia del usuario
 
 "Una vez que el usuario inicia sesión, accede a un panel personal donde puede:
 
@@ -91,7 +91,7 @@ Gestionar su perfil: Editar sus datos y preferencias.
 Realizar un seguimiento de sus solicitudes: Visualizar el estado de cada solicitud a través de una interfaz Kanban o una lista detallada.
 Solicitar permisos: Completar un formulario intuitivo para realizar nuevas solicitudes."
 
-Énfasis en las funcionalidades del sistema
+### Énfasis en las funcionalidades del sistema
 
 "El sistema ofrece a Recursos Humanos las siguientes funcionalidades:
 
