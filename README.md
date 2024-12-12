@@ -15,7 +15,7 @@ La herramienta, diseñada en el marco del curso de Análisis y Diseño de Sistem
 - `/controllers`: 
 - `/demo`: 
 - `/models`:
--     - _init_.py
+-     - `_init_.py`
 -     - employees.py
 -     - personalinfo.py
 -     - seguimiento_empleado.py
@@ -39,9 +39,8 @@ La herramienta, diseñada en el marco del curso de Análisis y Diseño de Sistem
   - Implementó el Modelo employees, personalinfo.
   - Implementó el Vista employees, personalinfo.
 - **Imagen de Referencia:**
-  ![1](https://github.com/user-attachments/assets/f132dac3-7757-4957-ba5d-1cc1c5732c11)
-
-
+![1](https://github.com/user-attachments/assets/f132dac3-7757-4957-ba5d-1cc1c5732c11)
+![2](https://github.com/user-attachments/assets/d7365984-85e4-460d-9dd6-6e03c5665b50)
 
 
 ### Integrante 1: [Erick]
